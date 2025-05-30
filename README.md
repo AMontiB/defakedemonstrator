@@ -44,7 +44,7 @@ To implement your own, I suggest the following steps:
 
 5. Finally edit `runner.py`
 
-6. Please place your weights inside 'src/$projectslug/runs/checkpoints'
+6. Please place your weights inside `src/$projectslug/runs/checkpoints`
 
 To run/debug see [https://mlflow.org/docs/latest/tracking/tutorials/local-database](https://mlflow.org/docs/latest/tracking/tutorials/local-database) , then
 
@@ -54,7 +54,7 @@ export MLFLOW_EXPERIMENT_NAME= $YourModelName
 mlflow run --env-manager local .
 
 cd src/
-python -m $yourcookiecuttername.runner 
+python -m $projectslug.runner 
 ```
 
 
