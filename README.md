@@ -38,13 +38,15 @@ To implement your own, I suggest the following steps:
 
 2.  Move to `model_wrapper.py`. Uncomment and, if necessary, adapt `load_context()`. In my case, I had to change a couple of things as DeFake used not one but two models during inference. Then, edit `load_model()`; this function is essential for loading your network, allocating GPU, performing evaluation, and correctly pre-processing the data. Finally, edit `prediction()`.
 
-3.  Move to `runner.py`. 
+3. Edit `uploader.py` to run inference and to upload everything on MLflow.
 
-4. Finally edit `uploader.py` to run inference and to upload everything on MLflow.
+4. Edit `runner_helper.py` to run inference without load artifacts and results on mlflow
 
-5.  Once you have finished:
+5. Finally edit `runner.py`
 
-see https://mlflow.org/docs/latest/tracking/tutorials/local-database
+6. Please place your weights inside 'src/$projectslug/runs/checkpoints'
+
+To run/debug see [https://mlflow.org/docs/latest/tracking/tutorials/local-database](https://mlflow.org/docs/latest/tracking/tutorials/local-database) , then
 
 ```
 export MLFLOW_TRACKING_URI=http://127.0.0.1:5000/

@@ -17,7 +17,7 @@ from defakedemonstrator.model_wrapper import ModelWrapper
 logger = logging.getLogger(__name__)
 
 
-def upload_artifact(artifact_path1, artifact_path2, model_class: str, model_freeze: bool):
+def upload_artifact(image_path, artifact_path1, artifact_path2, model_class: str, model_freeze: bool):
 
     for loader_class, artifact_name in [(DataFrameLoader, "wrapped_model"), (ImageAzureLoader, "wrapped_model_azure")]:
 
@@ -38,7 +38,7 @@ def upload_artifact(artifact_path1, artifact_path2, model_class: str, model_free
         input_example = model_input_signature.head()
 
         # Use real image only for test prediction, not for logging
-        image_path = './img_1.png'
+        #image_path = './img_1.png'
         image = Image.open(image_path).convert("RGB")
         test_input_df = pil_to_dataframe(image)
 

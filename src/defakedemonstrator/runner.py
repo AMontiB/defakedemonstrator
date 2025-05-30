@@ -17,7 +17,7 @@ from types import SimpleNamespace
 from defakedemonstrator.model_builder import get_requirements
 from defakedemonstrator.model_wrapper import ModelWrapper
 from defakedemonstrator.utils.uploader import upload_artifact
-#cfrom defakedemonstrator.runner_helper import DeFakeRunner
+from defakedemonstrator.runner_helper import DeFakeRunner
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 import warnings
@@ -49,7 +49,7 @@ def run_method(
     print("Current working directory:", os.getcwd())
     
     num_threads = os.cpu_count() // 2
-    #model = DeFakeRunner(model_flag,device, load_id, num_threads, phase)
+    model = DeFakeRunner(model_flag,device, load_id, num_threads, phase)
 
     # inti the mlflow run for storing metrics and artifacts
     with mlflow.start_run(run_name=run_name) as run: 
@@ -65,15 +65,16 @@ def run_method(
         image_path = './img_1.png'
         image = Image.open(image_path).convert("RGB")
 
-        #prediction = model.predict(image)
-        #mlflow.log_metric("generetor N", prediction)
+        prediction = model.predict(image)
+        mlflow.log_metric("generetor N", prediction)
 
         # infer signature
         upload_artifact(
+            image_path,
             artifact_path1='runs/checkpoints/train_linear_model.pth',
             artifact_path2='runs/checkpoints/train_clip_model.pth',
             model_class=model_flag,
-            model_freeze=model_freeze
+            model_freeze=model_freeze,
         )
 
 
