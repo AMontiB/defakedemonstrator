@@ -1,0 +1,11 @@
+name: "defakedemonstrator"
+entry_points:
+  main:
+    parameters: {}
+    command: "python -m defakedemonstrator.train --data_path {data_path}"
+  reupload:
+    parameters:
+        run_id: {type: str}
+        artifact_path: {type: str, default: "wrapped_model"}
+        model_class: {type: str, default: "nodown"}
+    command: "python -m defakedemonstrator.re_uploader --run_id {run_id} --artifact_path {artifact_path} --model_class {model_class}"
