@@ -118,14 +118,3 @@ def get_network(model_name: str, task: str) -> nn.Module:
     else:
         raise ValueError(f"Unsupported model_name: {model_name}. Currently only 'simple_mlp' is supported.")
 
-
-
-
-
-
-
-##################
-
-
-
-

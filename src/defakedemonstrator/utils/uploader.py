@@ -38,23 +38,15 @@ def upload_artifact(image_path, artifact_path1, artifact_path2, model_class: str
         input_example = model_input_signature.head()
 
         # Use real image only for test prediction, not for logging
-        #image_path = './img_1.png'
         image = Image.open(image_path).convert("RGB")
         test_input_df = pil_to_dataframe(image)
 
         prediction = model.run_prediction(test_input_df)
 
-        class_labels = [
-            'AdobeFirefly', 'Dall-E3', 'Flux.1', 'Flux.1.1Pro', 'Freepik',
-            'LeonardoAI', 'Midjourney', 'StableDiffusion3.5', 'StableDiffusionXL', 'StarryAI'
-        ]
-        prediction_df = pd.DataFrame(prediction.detach().cpu().numpy(), columns=class_labels)
-
-        model_output_df = model.post_process_elem(test_input_df, prediction_df)
-        model_output_df = pd.DataFrame([model_output_df])
+        model_output_df = model.post_process_elem(test_input_df, prediction)
 
         # Signature matches expected input structure, not the image data
-        signature = infer_signature(input_example, model_output_df.values[0])
+        signature = infer_signature(input_example, model_output_df)#.values[0])
 
         mlflow.pyfunc.log_model(
             python_model=wrapper,

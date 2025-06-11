@@ -140,6 +140,15 @@ class ModelWrapper(BaseWrapper):
 
                     print('FINAL DECISION DETECTOR N: ', torch.softmax(scores, -1).argmax(1).cpu().numpy()[0], 'with probability: ', torch.softmax(scores, -1)[0,torch.softmax(scores, -1).argmax(1).cpu().numpy()[0]].cpu().numpy())
 
-        return torch.softmax(scores, -1)
+        predictions = torch.softmax(scores, -1).cpu().numpy()[0]
+        #####
+        class_labels = [
+            'AdobeFirefly', 'Dall-E3', 'Flux.1', 'Flux.1.1Pro', 'Freepik',
+            'LeonardoAI', 'Midjourney', 'StableDiffusion3.5', 'StableDiffusionXL', 'StarryAI'
+            ]
+        
+        dict_result = {}
+        for idx, pred in enumerate(predictions):
+            dict_result[class_labels[idx]] = pred
+        return dict_result
 
-        #return torch.softmax(scores, -1).argmax(1).cpu().numpy()[0], torch.softmax(scores, -1)[0,torch.softmax(scores, -1).argmax(1).cpu().numpy()[0]].cpu().numpy()
